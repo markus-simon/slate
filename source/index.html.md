@@ -1,15 +1,11 @@
 ---
-title: API Reference
+title: APIDocs
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a target="_blank" href='http://gb2-st-trackingservice-001.io.thehut.local'>Sign Up for a Developer Key</a>
 
 includes:
   - errors
@@ -19,221 +15,199 @@ search: true
 
 # Glossybox Violet Supertool!!!
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the VIOLET API! You can use our API to access VIOLET API endpoints, which can get information on various cats, kittens, and breeds in our database.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, PHP, and Javascript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "http://gb2-st-trackingservice-001.io.thehut.local"
+    -H "Authorization: yourapikey"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+> Make sure to replace `yourapikey` with your API key.
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+VIOLET uses API keys to allow access to the API. Check our portal for your own API key.
+VIOLET expects the API key to be included in all API requests to the server in a header that looks like the following:
 </aside>
 
-# Kittens
+# Trackings
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get All Trackings
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl http://gb2-st-trackingservice-001.io.thehut.local/violet/api/trackings
+    -H "Content-type: application/json"
+    -H "Accept: application/json"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{  
+   "trackings":[  
+      {  
+         "tracking_number":"52060900714668551970",
+         "createdAt":"2018-02-21T11:27:30+00:00",
+         "updatedAt":"2018-02-21T11:27:30+00:00",
+         "historyCount":2,
+         "history":{  
+            "data":[  
+               {  
+                  "id":1,
+                  "createdAt":"2018-02-21T11:27:30+00:00",
+                  "updatedAt":"2018-02-21T11:27:30+00:00",
+                  "status":"528"
+               },
+               {  
+                  "id":2,
+                  "createdAt":"2018-02-21T11:27:30+00:00",
+                  "updatedAt":"2018-02-21T11:27:30+00:00",
+                  "status":"528"
+               }
+            ]
+         }
+      }
+  ]
+}
+```
+
+This endpoint retrieves all trackings.
+
+## Get a Specific tracking
+
+```shell
+curl http://gb2-st-trackingservice-001.io.thehut.local/violet/api/trackings/52060900714668551970
+    -H "Content-type: application/json"
+    -H "Accept: application/json"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "tracking": {
+    "tracking_number": "52060900714668551970",
+    "createdAt": "2018-02-21T11:27:30+00:00",
+    "updatedAt": "2018-02-21T11:27:30+00:00",
+    "historyCount": 2,
+    "history": {
+      "data": [
+        {
+          "id": 1,
+          "createdAt": "2018-02-21T11:27:30+00:00",
+          "updatedAt": "2018-02-21T11:27:30+00:00",
+          "status": "528"
+        },
+        {
+          "id": 2,
+          "createdAt": "2018-02-21T11:27:30+00:00",
+          "updatedAt": "2018-02-21T11:27:30+00:00",
+          "status": "528"
+        }
+      ]
+    }
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves a specific tracking.
 
-### HTTP Request
+### Parameters
 
-`GET http://example.com/api/kittens`
+Parameter | Description
+--------- | -----------
+Number | The Number of the tracking to retrieve
 
-### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
 
-## Get a Specific Kitten
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
 
-```python
-import kittn
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Add a tracking
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl http://gb2-st-trackingservice-001.io.thehut.local/violet/api/trackings
+    -H "Content-type: application/json"
+    -H "Accept: application/json"
+    -d '{"shipment_number":"10000028", "order_number":"100000028,"tracking_number":"52060900714668551970", "internal_service_id":"1"}' 
+    -X POST
 ```
 
-```javascript
-const kittn = require('kittn');
+> The above command returns JSON structured like this:  
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+```json
+{
+  "success": true
+}
+```
+
+This endpoint adds a tracking.
+
+
+
+
+
+
+
+
+## Update a tracking
+
+```shell
+curl http://gb2-st-trackingservice-001.io.thehut.local/violet/api/trackings/52060900714668551970
+    -H "Content-type: application/json"
+    -H "Accept: application/json"
+    -d '{"shipment_number":"10000028", "order_number":"100000028,"tracking_number":"52060900714668551970", "internal_service_id":"1"}' 
+    -X PUT 
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "success": true
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint updates a tracking.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
+### Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+Number | The Number of the tracking to update
 
-## Delete a Specific Kitten
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Delete a tracking
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+curl http://gb2-st-trackingservice-001.io.thehut.local/violet/api/trackings/52060900714668551970x
+    -H "Content-type: application/json"
+    -H "Accept: application/json"
+    -X DELETE
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "success": true
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint deletes a tracking.
 
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
+### Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
-
+Number | The Number of the tracking to delete
